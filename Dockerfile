@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:14
 
 WORKDIR /app/
 
@@ -30,6 +30,7 @@ ENV DD_APM_ENABLED=true
 ENV PORT=3003
 
 COPY package*.json /app/
+
 RUN npm install
 
 COPY . /app/

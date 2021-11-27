@@ -14,6 +14,7 @@ services:
     restart: always
 
   node:
+    image: node:14
     build: .
     environment:
       - PORT=3003

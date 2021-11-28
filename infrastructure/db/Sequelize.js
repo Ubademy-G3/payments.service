@@ -14,5 +14,26 @@ module.exports = (database, Sequelize) => {
       }
     });
   
-    return Wallet;
+    const Deposit = database.define("deposits", {
+      id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4,
+      },
+      tx_hash: {
+        type: Sequelize.STRING
+      },
+      sender_address: {
+        type: Sequelize.STRING
+      },
+      amount_sent: {
+        type: Sequelize.STRING
+      }
+    });
+
+    return {
+      wallet: Wallet,
+      deposit: Deposit
+    };
 };

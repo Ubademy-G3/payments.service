@@ -186,6 +186,137 @@
                     }
                 }
             }
+        },
+        "/deposit": {
+            "post": {
+                "tags": ["Deposits"],
+                "summary": "Creates new deposit",
+                "description": "Returns created deposit",
+                "parameters": [
+                    {
+                        "name": "deposit",
+                        "in": "body",
+                        "schema": {
+                            "properties": {
+                                "sender_address": {
+                                    "type": "string"
+                                },
+                                "amount_sent": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Created deposit",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "format":"uuid"
+                                },
+                                "sender_address": {
+                                    "type": "string"
+                                },
+                                "amount_sent": {
+                                    "type": "string"
+                                },
+                                "tx_hash": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/deposit/{txHash}": {
+            "get": {
+                "tags": ["Deposits"],
+                "summary": "Get deposit by hash",
+                "description": "Returns a deposit receipt",
+                "parameters": [
+                    {
+                        "name": "txHash",
+                        "in": "path",
+                        "description": "Hash of the deposit to fetch",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A deposit receipt",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "format":"uuid"
+                                },
+                                "sender_address": {
+                                    "type": "string"
+                                },
+                                "amount_sent": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

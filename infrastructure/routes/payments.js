@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/wallet", walletController.getAllWallets);
 router.get("/wallet/:id", walletController.getWalletById);
 router.post("/wallet", walletController.createWallet);
-//router.post("/deposit", walletController.createDeposit);
-//router.get("/deposit/:txHash", walletController.getDeposit);
+router.post("/deposit", depositController.createDeposit);
+router.get("/deposit/:txHash", depositController.getDeposit);
 
 module.exports = router;

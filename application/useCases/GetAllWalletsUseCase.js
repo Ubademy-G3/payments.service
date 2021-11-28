@@ -1,4 +1,4 @@
-const { UnexpectedError } = require("../exceptions/UnexpectedException");
+const { UnexpectedException } = require("../../application/exceptions/UnexpectedException");
 
 module.exports = async (repository, params) => {
   try {

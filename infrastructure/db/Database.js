@@ -30,8 +30,8 @@ if(process.env.NODE_ENV !== "testing"){
     
     db.Sequelize = Sequelize;
     db.sequelize = database;
-    
-    db.wallets = require("./Sequelize")(database, Sequelize);
-    
+
+    db.wallets = require("./Sequelize")(database, Sequelize).wallet;
+    db.deposits = require("./Sequelize")(database, Sequelize).deposit;
     module.exports = db;
 }

@@ -19,7 +19,9 @@ module.exports = class extends WalletRepository {
 
     if (wallet && Object.keys(wallet).length !== 0) {
       return new WalletModel(
-        user.id
+        wallet.id,
+        wallet.address,
+        wallet.private_key
       );
     }
     return null;
@@ -30,6 +32,7 @@ module.exports = class extends WalletRepository {
       where: params,
       truncate: false,
     });
-    return wallets;
+
+    return wallets.map((wallet) => new WalletModel(wallet.id, wallet.address, wallet.private_key));
   }
 };

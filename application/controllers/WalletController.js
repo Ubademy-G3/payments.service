@@ -3,7 +3,7 @@ const retrieveWallet = require("../useCases/RetrieveWalletUseCase");
 const createWallet = require("../useCases/CreateWalletUseCase");
 const { NotFoundException } = require("../../domain/exceptions/NotFoundException");
 const { BadRequestException } = require("../exceptions/BadRequestException");
-const { WalletAlreadyExistsException } = require("../../domain/exceptions/WalletAlreadyExistsException");
+const { AlreadyExistsException } = require("../../domain/exceptions/AlreadyExistsException");
 const serializer = require("../serializers/WalletSerializer");
 
 exports.getAllWallets = (req, res) => {
@@ -11,7 +11,7 @@ exports.getAllWallets = (req, res) => {
     if (!apikey || apikey !== process.env.PAYMENTSERVICE_APIKEY) {
         return res.status(401).send({ message: "Unauthorized" });
     }
-    const repository = req.app.serviceLocator.paymentsRepository;
+    const repository = req.app.serviceLocator.walletRepository;
 
     getAllWallets(repository, req.query)
         .then((wallets) => res.status(200).json(serializer(wallets)))
@@ -42,15 +42,12 @@ exports.createWallet = (req, res) => {
     return res.status(401).send({ message: "Unauthorized" });
   }
 
-  //if (!validate(req.body, WALLET_CREATION_SCHEMA).valid) {
-  //  return res.status(400).json({ message: "Invalid fields" });
-  //}
   const repository = req.app.serviceLocator.walletRepository;
 
   createWallet(repository)
     .then((wallet) => res.status(200).json(serializer(wallet)))
     .catch((err) => {
-      if (err instanceof WalletAlreadyExistsException) {
+      if (err instanceof AlreadyExistsException) {
         return res.status(409).send({ message: err.message });
       }
       if (err instanceof BadRequestException) {

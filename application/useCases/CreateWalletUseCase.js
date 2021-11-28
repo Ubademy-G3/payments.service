@@ -1,11 +1,11 @@
 const { BadRequest } = require("../exceptions/BadRequestException");
-const { UnexpectedError } = require("../exceptions/UnexpectedException");
-const { WalletAlreadyExists } = require("../../domain/exceptions/WalletAlreadyExistsException");
+const { UnexpectedException } = require("../exceptions/UnexpectedException");
+const { AlreadyExists } = require("../../domain/exceptions/AlreadyExistsException");
 
 module.exports = async (repository) => {
   try {
     return repository.createWallet({privateKey: 'testingPk', address: 'testingAdrs'});
   } catch (err) {
-    throw new UnexpectedError(`Unexpected error happened when creating wallet ${err}`);
+    throw new UnexpectedException(`Unexpected error happened when creating wallet ${err}`);
   }
 };

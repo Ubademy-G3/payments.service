@@ -1,4 +1,4 @@
-class WalletAlreadyExistsException extends Error {
+class AlreadyExistsException extends Error {
     constructor(message) {
       super(message);
       this.name = this.constructor.name;
@@ -7,5 +7,5 @@ class WalletAlreadyExistsException extends Error {
   }
   
   module.exports = {
-    WalletAlreadyExistsException,
+    AlreadyExistsException,
   };

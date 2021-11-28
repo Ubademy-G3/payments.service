@@ -30,6 +30,7 @@ ENV DD_APM_ENABLED=true
 ENV PORT=3003
 
 COPY package*.json /app/
+COPY . /app/
 
 RUN npm install
 

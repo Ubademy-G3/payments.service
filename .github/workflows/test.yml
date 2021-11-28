@@ -69,7 +69,14 @@ jobs:
       needs: [run_eslint, run_tests]
       steps:
         - uses: actions/checkout@master
-
+        - name: Create .env file
+          run: |
+            echo MNEMONIC=$MNEMONIC >> .env
+            echo INFURA_API_KEY=$INFURA_API_KEY >> .env
+          shell: bash
+          env:
+            MNEMONIC: ${{secrets.MNEMONIC}}
+            INFURA_API_KEY: ${{secrets.INFURA_API_KEY}}
         - name: Build container
           run: docker build -t payments.service .
 

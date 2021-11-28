@@ -54,13 +54,13 @@ jobs:
           run: npm ci
 
         - name: Run tests
-          run: npm run test:coverage 
+          run: npm run test 
 
         # Runs only when push/pr to main
-        - uses: codecov/codecov-action@v1
-          if: ${{ github.ref == 'refs/heads/main' }}
-          with:
-            token: ${{ secrets.CODECOV_TOKEN }}
+        #- uses: codecov/codecov-action@v1
+        #  if: ${{ github.ref == 'refs/heads/main' }}
+        #  with:
+        #    token: ${{ secrets.CODECOV_TOKEN }}
     deploy: 
       if: ${{ github.ref == 'refs/heads/main' }}
       runs-on: ubuntu-latest

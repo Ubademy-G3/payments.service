@@ -12,8 +12,10 @@ exports.createDeposit = (req, res) => {
     }
   
     const repository = req.app.serviceLocator.depositRepository;
-  
-    createDeposit(repository, req.body)
+    const contractAddress = req.app.serviceLocator.contractAddress;
+    const contractAbi = req.app.serviceLocator.contractAbi;
+
+    createDeposit(repository, req.body, contractAddress, contractAbi)
       .then((deposit) => res.status(200).json(serializer(deposit)))
       .catch((err) => {
         if (err instanceof AlreadyExistsException) {

@@ -8,8 +8,8 @@ module.exports = class extends WalletRepository {
   static async createWallet(walletInfo) {
     const winfo = {
       address: walletInfo.address,
-      private_key: walletInfo.privateKey
-    }
+      private_key: walletInfo.privateKey,
+    };
     const newWallet = await WalletDb.create(winfo);
     return new WalletModel(newWallet.id, newWallet.address, newWallet.private_key);
   }
@@ -18,11 +18,7 @@ module.exports = class extends WalletRepository {
     const wallet = await WalletDb.findByPk(id);
 
     if (wallet && Object.keys(wallet).length !== 0) {
-      return new WalletModel(
-        wallet.id,
-        wallet.address,
-        wallet.private_key
-      );
+      return new WalletModel(wallet.id, wallet.address, wallet.private_key);
     }
     return null;
   }
@@ -33,6 +29,6 @@ module.exports = class extends WalletRepository {
       truncate: false,
     });
 
-    return wallets.map((wallet) => new WalletModel(wallet.id, wallet.address, wallet.private_key));
+    return wallets.map(wallet => new WalletModel(wallet.id, wallet.address, wallet.private_key));
   }
 };

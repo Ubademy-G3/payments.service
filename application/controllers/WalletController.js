@@ -7,17 +7,17 @@ const { AlreadyExistsException } = require("../../domain/exceptions/AlreadyExist
 const serializer = require("../serializers/WalletSerializer");
 
 exports.getAllWallets = (req, res) => {
-    const apikey = req.get("authorization");
-    if (!apikey || apikey !== process.env.PAYMENTSERVICE_APIKEY) {
-        return res.status(401).send({ message: "Unauthorized" });
-    }
-    const repository = req.app.serviceLocator.walletRepository;
+  const apikey = req.get("authorization");
+  if (!apikey || apikey !== process.env.PAYMENTSERVICE_APIKEY) {
+    return res.status(401).send({ message: "Unauthorized" });
+  }
+  const repository = req.app.serviceLocator.walletRepository;
 
-    getAllWallets(repository, req.query)
-        .then((wallets) => res.status(200).json(serializer(wallets)))
-        .catch((err) => res.status(500).send({ message: err.message }));
-    return null;
-}
+  getAllWallets(repository, req.query)
+    .then(wallets => res.status(200).json(serializer(wallets)))
+    .catch(err => res.status(500).send({ message: err.message }));
+  return null;
+};
 
 exports.getWalletById = (req, res) => {
   const apikey = req.get("authorization");
@@ -26,18 +26,18 @@ exports.getWalletById = (req, res) => {
   }
   const repository = req.app.serviceLocator.walletRepository;
   retrieveWallet(repository, req.params)
-    .then((wallet) => res.status(200).json(serializer(wallet)))
-    .catch((err) => {
+    .then(wallet => res.status(200).json(serializer(wallet)))
+    .catch(err => {
       if (err instanceof NotFoundException) {
         return res.status(404).send({ message: err.message });
       }
       return res.status(500).send({ message: err.message });
     });
   return null;
-}
+};
 
 exports.createWallet = (req, res) => {
-    const apikey = req.get("authorization");
+  const apikey = req.get("authorization");
   if (!apikey || apikey !== process.env.PAYMENTSERVICE_APIKEY) {
     return res.status(401).send({ message: "Unauthorized" });
   }
@@ -45,16 +45,16 @@ exports.createWallet = (req, res) => {
   const repository = req.app.serviceLocator.walletRepository;
 
   createWallet(repository)
-    .then((wallet) => res.status(200).json(serializer(wallet)))
-    .catch((err) => {
+    .then(wallet => res.status(200).json(serializer(wallet)))
+    .catch(err => {
       if (err instanceof AlreadyExistsException) {
         return res.status(409).send({ message: err.message });
       }
       if (err instanceof BadRequestException) {
         return res.status(400).send({ message: err.message });
       }
-      console.log(err)
+      console.log(err);
       return res.status(500).send({ message: err.message });
     });
   return null;
-}
+};

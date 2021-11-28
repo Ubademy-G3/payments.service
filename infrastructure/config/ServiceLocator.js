@@ -13,8 +13,8 @@ function buildServices() {
     depositRepository: depositRepository,
     deployerMnemonic,
     infuraApiKey,
-    network
-  }
+    network,
+  };
 }
 
 module.exports = buildServices();

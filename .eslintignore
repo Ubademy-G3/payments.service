@@ -11,10 +11,15 @@ profiles/
 docs/
 .gitlab/
 .vscode/
-src/
 deployments/
+application/
+infrastructure/
+persistence/
+domain/
 
 # files
 .solcover.js
 coverage.json
 tsconfig.json
+app.js
+index.js

@@ -37,7 +37,14 @@ jobs:
         CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
       steps:
         - uses: actions/checkout@master
-
+        - name: Create .env file
+          run: |
+            echo MNEMONIC=$MNEMONIC >> .env
+            echo INFURA_API_KEY=$INFURA_API_KEY >> .env
+          shell: bash
+          env:
+            MNEMONIC: ${{secrets.MNEMONIC}}
+            INFURA_API_KEY: ${{secrets.INFURA_API_KEY}}
         - name: Use Node.js
           uses: actions/setup-node@v1
           with:

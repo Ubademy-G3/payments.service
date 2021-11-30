@@ -50,7 +50,5 @@ module.exports = async (repository, params, contractAddress, contractAbi) => {
       console.error(message);
     },
   );
-  console.log("TX");
-  console.log(res);
   return res;
 };

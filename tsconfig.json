@@ -20,14 +20,15 @@
     "application/**/*",
     "infrastructure/**/*",
     "persistence/**/*",
-    "domain/**/*"
+    "domain/**/*",
+    "test",
+    "jest.config.js"
   ],
   "include": [
     "artifacts/**/*",
     "artifacts/**/*.json",
     "scripts/**/*",
     "tasks/**/*",
-    "test/**/*",
     "deploy/**/*",
     "typechain/**/*",
     "types/**/*",

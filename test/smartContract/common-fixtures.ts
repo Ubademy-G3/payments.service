@@ -2,7 +2,7 @@ import { ethers, waffle, getNamedAccounts, deployments } from "hardhat";
 import { Wallet, Transaction, BigNumberish } from "ethers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { MockProvider } from "ethereum-waffle";
-import { UbademyPayments } from "../typechain";
+import { UbademyPayments } from "../../typechain";
 const { loadFixture } = waffle;
 
 export async function fixtureDeployedBasicPayments(): Promise<UbademyPayments> {

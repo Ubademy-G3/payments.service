@@ -12,7 +12,7 @@ module.exports = class extends DepositRepository {
       tx_hash: depositInfo.tx_hash,
     };
     const newDeposit = await DepositDb.create(winfo);
-    return new DepositModel(newDeposit.id, newDeposit.sender_address, newDeposit.amount_sent, newDeposit.tx_hash);
+    return new DepositModel(newDeposit.id, newDeposit.sender_address, newDeposit.amount_sent, newDeposit.tx_hash, null);
   }
 
   static async getDeposit(params) {
@@ -22,8 +22,17 @@ module.exports = class extends DepositRepository {
     });
 
     if (deposit[0] && Object.keys(deposit[0]).length !== 0) {
-      return new DepositModel(deposit[0].id, deposit[0].sender_address, deposit[0].amount_sent, deposit[0].tx_hash);
+      return new DepositModel(deposit[0].id, deposit[0].sender_address, deposit[0].amount_sent, deposit[0].tx_hash, deposit[0].createdAt);
     }
     return null;
+  }
+
+  static async getAllDeposits(params) {
+    const deposits = await DepositDb.findAll({
+      where: params,
+      truncate: false,
+    });
+
+    return deposits.map(deposit => new DepositModel(deposit.id, deposit.sender_address, deposit.amount_sent, deposit.tx_hash, deposit.createdAt));
   }
 };

@@ -252,6 +252,57 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": ["Deposits"],
+        "summary": "Return a list of deposits",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of deposits",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "sender_address": {
+                    "type": "string"
+                  },
+                  "amount_sent": {
+                    "type": "string"
+                  },
+                  "tx_hash": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
       }
     },
     "/deposit/{txHash}": {

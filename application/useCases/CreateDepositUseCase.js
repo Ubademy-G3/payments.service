@@ -3,7 +3,7 @@ const { BadRequestException } = require("../exceptions/BadRequestException");
 const { UnexpectedException } = require("../exceptions/UnexpectedException");
 const GetAllWalletsUseCase = require("./GetAllWalletsUseCase");
 
-const getWallet = async (w) => {
+const getWallet = async w => {
   const provider = new ethers.providers.InfuraProvider("kovan", process.env.INFURA_API_KEY);
   try {
     return new ethers.Wallet(w[0].privateKey, provider);

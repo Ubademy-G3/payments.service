@@ -1,4 +1,4 @@
-/*const supertest = require("supertest");
+const supertest = require("supertest");
 const app = require("../../app");
 const depositRepository = require("../../persistence/repositories/DepositRepositoryPostgres");
 
@@ -34,8 +34,8 @@ describe("depositController", () => {
     describe("GET", () => {
       describe("when unexpected error happens", () => {
         beforeEach(async () => {
-          spyWalletRepository.getAllWallets = jest
-            .spyOn(walletRepository, "getAllWallets")
+          spyDepositRepository.getAllDeposits = jest
+            .spyOn(depositRepository, "getAllDeposits")
             .mockImplementation(() => {
               throw new Error();
             });
@@ -48,15 +48,15 @@ describe("depositController", () => {
         });
       });
 
-      describe("when unexpected error happens gettin wallet by id", () => {
+      describe("when unexpected error happens gettin deposit by hash", () => {
         it("should respond with unexpected error status", async () => {
-            spyWalletRepository.getWalletById = jest
-            .spyOn(walletRepository, "getWalletById")
+          spyDepositRepository.getDeposit = jest
+            .spyOn(depositRepository, "getDeposit")
             .mockImplementation(() => {
               throw new Error();
             });
 
-          res = await request.get(`${path}/1234`).set("authorization", "abc123");
+          res = await request.get(`${path}/?txHash=1234`).set("authorization", "abc123");
           expect(res.status).toEqual(500);
         });
       });
@@ -68,26 +68,14 @@ describe("depositController", () => {
           expect(res.body).toEqual({ message: "Unauthorized" });
         });
       });
-
-      describe("when invalid id getting wallet by id", () => {
-        it("should respond with wallet not found status and body", async () => {
-            spyWalletRepository.getWalletById = jest
-            .spyOn(walletRepository, "getWalletById")
-            .mockReturnValueOnce(null);
-
-          res = await request.get(`${path}/banana`).set("authorization", "abc123");
-          expect(res.status).toEqual(404);
-          expect(res.body).toEqual({ message: "Wallet Id not found" });
-        });
-      });
       
-      describe("when invalid apikey getting wallet by id", () => {
+      describe("when invalid apikey getting deposit by hash", () => {
         it("should respond with unauthorized error status and body", async () => {
-            spyWalletRepository.getWalletById = jest
-            .spyOn(walletRepository, "getWalletById")
-            .mockReturnValueOnce(walletsReq[0]);
+          spyDepositRepository.getDeposit = jest
+            .spyOn(depositRepository, "getDeposit")
+            .mockReturnValueOnce(depositReq);
 
-          res = await request.get(`${path}/${walletsReq[0].id}`).set("authorization", "banana");
+          res = await request.get(`${path}/${depositReq.id}`).set("authorization", "banana");
           expect(res.status).toEqual(401);
           expect(res.body).toEqual({ message: "Unauthorized" });
         });
@@ -104,4 +92,4 @@ describe("depositController", () => {
     });
   });
 });
-});*/
+});

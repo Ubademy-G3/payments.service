@@ -3,7 +3,7 @@ const serializeDeposit = deposit => ({
   sender_address: deposit.senderAddress,
   amount_sent: deposit.amountSent,
   tx_hash: deposit.txHash,
-  created_at: deposit.createdAt
+  created_at: deposit.createdAt,
 });
 
 module.exports = data => {

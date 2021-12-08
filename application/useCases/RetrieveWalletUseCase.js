@@ -13,7 +13,7 @@ module.exports = async (repository, params) => {
     const w = new ethers.Wallet(wallet.privateKey, provider);
     const balanceBN = await w.getBalance();
     const balance = await ethers.utils.formatEther(balanceBN);
-    await repository.updateWallet(params.id, { balance: balance});
+    await repository.updateWallet(params.id, { balance: balance });
     wallet = await repository.getWalletById(params.id);
     return wallet;
   } catch (err) {

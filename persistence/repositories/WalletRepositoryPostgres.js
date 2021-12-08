@@ -33,12 +33,11 @@ module.exports = class extends WalletRepository {
   }
 
   static async updateWallet(id, params) {
-    const result = await WalletDb.update(params,
-      {
-        where: {
-          id,
-        },
-      });
+    const result = await WalletDb.update(params, {
+      where: {
+        id,
+      },
+    });
     return result;
   }
 };

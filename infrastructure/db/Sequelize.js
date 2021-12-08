@@ -12,6 +12,10 @@ module.exports = (database, Sequelize) => {
     private_key: {
       type: Sequelize.STRING,
     },
+    balance: {
+      type: Sequelize.NUMBER,
+      defaultValue: 0
+    }
   });
 
   const Deposit = database.define("deposits", {
@@ -29,6 +33,7 @@ module.exports = (database, Sequelize) => {
     },
     amount_sent: {
       type: Sequelize.STRING,
+      defaultValue: "0"
     },
   });
 

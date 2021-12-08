@@ -18,7 +18,7 @@ module.exports = class extends WalletRepository {
     const wallet = await WalletDb.findByPk(id);
 
     if (wallet && Object.keys(wallet).length !== 0) {
-      return new WalletModel(wallet.id, wallet.address, wallet.private_key);
+      return new WalletModel(wallet.id, wallet.address, wallet.private_key, wallet.balance);
     }
     return null;
   }
@@ -30,5 +30,15 @@ module.exports = class extends WalletRepository {
     });
 
     return wallets.map(wallet => new WalletModel(wallet.id, wallet.address, wallet.private_key));
+  }
+
+  static async updateWallet(id, params) {
+    const result = await WalletDb.update(params,
+      {
+        where: {
+          id,
+        },
+      });
+    return result;
   }
 };

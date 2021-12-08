@@ -2,6 +2,7 @@ const serializeWallet = wallet => ({
   id: wallet.id,
   address: wallet.address,
   private_key: wallet.privateKey,
+  balance: wallet.balance
 });
 
 module.exports = data => {

@@ -10,4 +10,8 @@ module.exports = class Repository {
   static getAllWallets() {
     throw new Error("Method Not implemented");
   }
+
+  static updateWallet() {
+    throw new Error("Method Not implemented");
+  }
 };

@@ -1,6 +1,7 @@
-if (process.env.NODE_ENV !== "testing") {
-  const Sequelize = require("sequelize");
+const Sequelize = require("sequelize");
+const seq = require("./Sequelize");
 
+if (process.env.NODE_ENV !== "testing") {
   let database = null;
 
   if (process.env.NODE_ENV !== "stage") {
@@ -31,7 +32,7 @@ if (process.env.NODE_ENV !== "testing") {
   db.Sequelize = Sequelize;
   db.sequelize = database;
 
-  db.wallets = require("./Sequelize")(database, Sequelize).wallet;
-  db.deposits = require("./Sequelize")(database, Sequelize).deposit;
+  db.wallets = seq(database, Sequelize).wallet;
+  db.deposits = seq(database, Sequelize).deposit;
   module.exports = db;
 }

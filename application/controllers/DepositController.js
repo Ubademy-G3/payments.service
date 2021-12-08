@@ -16,8 +16,9 @@ exports.createDeposit = (req, res) => {
   const repository = req.app.serviceLocator.depositRepository;
   const contractAddress = req.app.serviceLocator.contractAddress;
   const contractAbi = req.app.serviceLocator.contractAbi;
+  const walletRepository = req.app.serviceLocator.walletRepository;
 
-  createDeposit(repository, req.body, contractAddress, contractAbi)
+  createDeposit(repository, walletRepository, req.body, contractAddress, contractAbi)
     .then(deposit => res.status(200).json(serializer(deposit)))
     .catch(err => {
       if (err instanceof AlreadyExistsException) {

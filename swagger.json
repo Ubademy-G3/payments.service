@@ -47,6 +47,9 @@
                 },
                 "privateKey": {
                   "type": "string"
+                },
+                "balance": {
+                  "type": "number"
                 }
               }
             }
@@ -155,6 +158,9 @@
                 },
                 "privateKey": {
                   "type": "string"
+                },
+                "balance": {
+                  "type": "number"
                 }
               }
             }

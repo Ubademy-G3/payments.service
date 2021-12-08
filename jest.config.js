@@ -4,7 +4,7 @@ const config = {
   verbose: true,
   clearMocks: true,
   resetMocks: true,
-  modulePathIgnorePatterns: ["smartContract"]
+  modulePathIgnorePatterns: ["smartContract"],
 };
 
 module.exports = config;
@@ -14,5 +14,5 @@ module.exports = async () => ({
   verbose: true,
   clearMocks: true,
   resetMocks: true,
-  modulePathIgnorePatterns: ["smartContract"]
+  modulePathIgnorePatterns: ["smartContract"],
 });

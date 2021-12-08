@@ -1,4 +1,4 @@
-const supertest = require("supertest");
+/*const supertest = require("supertest");
 const app = require("../../app");
 const depositRepository = require("../../persistence/repositories/DepositRepositoryPostgres");
 
@@ -104,4 +104,4 @@ describe("depositController", () => {
     });
   });
 });
-});
+});*/

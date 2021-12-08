@@ -9,5 +9,6 @@ router.get("/wallet/:id", walletController.getWalletById);
 router.post("/wallet", walletController.createWallet);
 router.post("/deposit", depositController.createDeposit);
 router.get("/deposit/:txHash", depositController.getDeposit);
+router.get("/deposit", depositController.getAllDeposits);
 
 module.exports = router;

@@ -2,12 +2,14 @@ const ethers = require("ethers");
 const { BadRequestException } = require("../exceptions/BadRequestException");
 const { UnexpectedException } = require("../exceptions/UnexpectedException");
 const GetAllWalletsUseCase = require("./GetAllWalletsUseCase");
+const logger = require("../logger")("CreateDepositUseCaseController.js");
 
 const getWallet = async w => {
   const provider = new ethers.providers.InfuraProvider("kovan", process.env.INFURA_API_KEY);
   try {
     return new ethers.Wallet(w[0].privateKey, provider);
   } catch (err) {
+    logger.warn(`Bad request: ${err.message}`);
     throw new BadRequestException(err.message);
   }
 };
@@ -26,9 +28,8 @@ module.exports = async (repository, walletRepository, params, contractAddress, c
 
   const res = await tx.wait(1).then(
     async receipt => {
-      // console.log("Transaction mined");
+      logger.info("Transaction mined");
       const firstEvent = receipt && receipt.events && receipt.events[0];
-      // console.log(firstEvent);
       if (firstEvent && firstEvent.event == "DepositMade") {
         const amount = ethers.utils.formatEther(firstEvent.args.amount);
         const dep = repository.createDeposit({
@@ -41,17 +42,15 @@ module.exports = async (repository, walletRepository, params, contractAddress, c
         await walletRepository.updateWallet(w[0].id, { balance: leftBalance });
         return dep;
       } else {
+        logger.error(`Critical error when creating deposit in tx ${tx.hash}: ${err.message}`);
         throw new UnexpectedException(`Payment not created in tx ${tx.hash}`);
       }
     },
     error => {
       const reasonsList = error.results && Object.values(error.results).map(o => o.reason);
       const message = error instanceof Object && "message" in error ? error.message : JSON.stringify(error);
-      console.error("reasons List");
-      console.error(reasonsList);
-
-      console.error("message");
-      console.error(message);
+      logger.error(`Reasons list: ${reasonsList}`);
+      logger.error(`Message: ${message}`);
       throw new BadRequestException(message);
     },
   );

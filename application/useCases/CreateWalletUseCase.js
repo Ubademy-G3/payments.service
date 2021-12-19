@@ -2,6 +2,7 @@ const { BadRequest } = require("../exceptions/BadRequestException");
 const { UnexpectedException } = require("../exceptions/UnexpectedException");
 const { AlreadyExists } = require("../../domain/exceptions/AlreadyExistsException");
 const ethers = require("ethers");
+const logger = require("../logger")("CreateWalletUseCase.js");
 
 module.exports = async repository => {
   try {
@@ -10,6 +11,7 @@ module.exports = async repository => {
     const wallet = ethers.Wallet.createRandom().connect(provider);
     return repository.createWallet({ privateKey: wallet.privateKey, address: wallet.address });
   } catch (err) {
+    logger.error(`Critical error when creating wallet: ${err.message}`);
     throw new UnexpectedException(`Unexpected error happened when creating wallet ${err}`);
   }
 };

@@ -20,7 +20,7 @@ module.exports = class extends DepositRepository {
   }
 
   static async getDeposit(params) {
-    logger.debug(`Getting deposit with id: ${params.id}`);
+    logger.debug(`Getting deposit with tx_hash: ${params.tx_hash}`);
     const deposit = await DepositDb.findAll({
       where: params,
       truncate: false,

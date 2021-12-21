@@ -7,7 +7,7 @@ const logger = require("../logger")("RetrieveDepositUseCase.js");
 module.exports = async (repository, params) => {
   const deposit = await repository.getDeposit({ tx_hash: params.txHash });
   if (!deposit) {
-    logger.warn(`Deposit ${params.id} not found`);
+    logger.warn(`Deposit ${params.txHash} not found`);
     throw new NotFound("Deposit Id not found");
   }
   try {

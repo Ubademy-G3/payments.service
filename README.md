@@ -119,6 +119,15 @@ Service dedicated to the management of payments and wallets of the users of the 
     ├── Ownable.d.ts
     └── UbademyPayments.d.ts
 ```
+
+# Tech Stack
+
+* NodeJS
+* Express (as web framework for NodeJS applications)
+* Sequelize (as an ORM for NodeJS)
+* PostgreSQL (as relational database)
+
+
 # Local Environment
 
 ## Requerimientos
